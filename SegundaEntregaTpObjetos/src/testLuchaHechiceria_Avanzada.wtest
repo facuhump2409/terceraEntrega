@@ -1,0 +1,59 @@
+import guerreros.*
+import armas.*
+import hechizos.*
+
+describe "espectro malefico con ese nombre, artefactos: espada, collar(5 perlas), mascara, armadura sin refuerzo, espejo"{
+	var espadaDelDestino= new ArmaBasica()
+	var mascaraOscura = new Mascara(1)
+	var espectroMalefico= new Logos("espectro Malefico",1)
+	var armadura = new Armadura(2,nada)
+	var cotaDeMalla = new CotaDeMalla(1)
+	var libroHechizos = new LibroHechizos([espectroMalefico,hechizoBasico])
+	var rolando = new Guerrero(espectroMalefico,1,[espadaDelDestino,collarDivino,mascaraOscura,armadura,espejo])
+fixture {
+	collarDivino.perlas(5)
+}
+
+test "rolando esta cargado"{
+	assert.that(rolando.estaCargado())
+}
+test "si rolando se saca la armadura deja de estar cargado"{
+	rolando.removerArtefacto(armadura)
+	assert.notThat(rolando.estaCargado())
+}
+test "conocer habilidad de lucha de rolando con todos los artefactos"{
+	assert.equals(20,rolando.valorLucha())
+}
+test "conocer habilidad de lucha de la armadura de rolando si tiene una bendicion de refuerzo"{
+	armadura.refuerzo(bendicion)
+	assert.equals(58,armadura.valor(rolando))
+}
+test "conocer habilidad de lucha de la armadura de rolando si tiene una cota de malla de refuerzo"{
+	armadura.refuerzo(cotaDeMalla)
+	assert.equals(3,armadura.valor(rolando))
+}
+test "conocer habilidad de lucha de la armadura de rolando si tiene un hechizo basico de refuerzo"{
+	armadura.refuerzo(hechizoBasico)
+	assert.equals(12,armadura.valor(rolando))
+}
+test "conocer habilidad de lucha de la armadura de rolando si tiene un espectro malefico de refuerzo"{
+	armadura.refuerzo(espectroMalefico)
+	assert.equals(19,armadura.valor(rolando))
+}
+test "conocer la habilidad de lucha de rolando si solo tiene el espejo"{
+	rolando.removerTodosLosArtefactos()
+	rolando.agregarArtefactos([espejo]) // lo corrimos por linea de comando y funciono no sabemos porque falla el test
+	assert.equals(1,rolando.valorLucha())
+}
+test "conocer nivel de hechiceria de rolando si reemplazo su hechizo preferido por un libro de hechizos con un espectro malefico y un hechizo basico"{
+	rolando.hechizoPreferido(libroHechizos)
+	assert.equals(56,rolando.nivelHechiceria())
+}
+test "Agregarle a Rolando una armadura extra, cuyo valor base es 5, con un refuerzo cota de malla que tiene un valor de lucha 6.
+Saber cuál es la habilidad para la lucha de Rolando."{
+	var nuevaCotaDeMalla = new CotaDeMalla(6)
+	var armaduraExtra = new Armadura(5,nuevaCotaDeMalla)
+	rolando.agregarArtefactos([armaduraExtra])
+	assert.equals(37,rolando.valorLucha())
+}
+}

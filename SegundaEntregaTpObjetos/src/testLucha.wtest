@@ -1,0 +1,54 @@
+import guerreros.*
+import armas.*
+import hechizos.*
+
+describe "el espectro malefico se llama asi, y rolando tiene que tener los tres artefactos
+		(espada,collar y mascara) y el collar tiene que tener 5 perlas"{
+			var espadaDelDestino= new ArmaBasica(0)
+			var mascaraOscura = new Mascara(1,0,0)
+			var espectroMalefico= new Logos("espectro Malefico",1)
+			var collarDivino = new CollarDivino (5,0,0)
+			var rolando= new Guerrero(espectroMalefico,1,[espadaDelDestino,collarDivino,mascaraOscura],100)
+			var mascaraNoOscura= new Mascara(0,0,0)
+fixture {
+	espectroMalefico.nombre("espectro malefico")
+	collarDivino.perlas(5)
+}
+test "Eliminar todos los artefactos de Rolando.
+Conocer la habilidad para la lucha de Rolando." {
+	rolando.removerTodosLosArtefactos()
+	assert.equals(1,rolando.valorLucha())
+}
+test "Conocer la habilidad para la lucha de Rolando con todos los artefactos."{
+	assert.equals(13,rolando.valorLucha())
+}
+test "Cambiar la cantidad de perlas del collar divino a 3.
+Conocer la habilidad para la lucha de Rolando con todos los artefactos."{
+	collarDivino.perlas(3)
+	assert.equals(11,rolando.valorLucha())
+}
+test "Cambiar el valor base para la lucha de Rolando a 8.
+Conocer la habilidad para la lucha de Rolando con todos los artefactos."{
+	rolando.valorBaseLucha(8)
+	assert.equals(20,rolando.valorLucha())
+}
+test "Hacer que ocurra un eclipse.
+Preguntar por el valor de lucha de la máscara oscura."{
+	fuerzaOscura.eclipse()
+	assert.equals(5,mascaraOscura.valor(rolando))
+}
+test "Eliminar la máscara oscura de los artefactos de Rolando.
+Conocer la habilidad para la lucha de Rolando."{
+	rolando.removerArtefacto(mascaraOscura)
+	assert.equals(9,rolando.valorLucha())
+}
+test "Tener una máscara (para nada) oscura con índice de oscuridad = 0. Preguntar por el valor de lucha de la máscara oscura de Rolando."{
+	//rolando.agregarArtefactos(mascaraNoOscura)
+	assert.equals(4,mascaraNoOscura.valor(rolando)) // gus a que se refiere con la mascara oscura de rolando?
+}
+test "Tener una máscara (para nada) oscura con índice de oscuridad = 0, y valor mínimo en 2. Preguntar por el valor de lucha de la máscara oscura de Rolando.
+"{
+	mascaraNoOscura.minimo(2)
+	assert.equals(2,mascaraNoOscura.valor(rolando))
+}
+}

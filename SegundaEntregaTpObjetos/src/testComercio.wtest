@@ -1,0 +1,75 @@
+import guerreros.*
+import armas.*
+import hechizos.*
+import comerciantes.*
+
+describe "crear a xenia con hechizo preferido de logos
+		thor con hechizo preferido basico
+		loki tiene 5 monedas y tien hechizo basico preferido
+		el hechizo de logos tiene multiplicador 1"{
+		var alacachulaCachicomula = new Logos("alacachula cachicomula",1)
+		var xenia = new Guerrero(alacachulaCachicomula,1,[],200)
+		var thor= new Guerrero(hechizoBasico,1,[],200)
+		var loki = new Guerrero(hechizoBasico,1,[],200)
+		var espada = new ArmaBasica(0)
+		var armaduraSinRef = new Armadura(2,nada,0,0)
+		var cotaDeMalla = new CotaDeMalla(5)
+		var armaduraConCota = new Armadura(2,cotaDeMalla,0,0)
+		var armaduraConBendicion = new Armadura(2,bendicion,0,0)
+		var armaduraConHechizo = new Armadura(2,hechizo,0,0)
+		var libroHechizos = new LibroHechizos([alacachulaCachicomula,hechizoBasico])
+		var mockHnos = new Comerciante(independiente)
+		var collarDivino = new CollarDivino (5,0,0)
+fixture{
+	collarDivino.perlas(5)
+	loki.pagarMonedas(95)
+	independiente.nuevaComision(0)
+}	
+test "Conocer el precio de lista de un hechizo de logo cuyo nombre es alacachula cachicomula." {
+	assert.equals(22,alacachulaCachicomula.precio(xenia))
+}
+test "Xenia canjea el hechizo por un hechizo básico. Saber cuántas monedas le quedan."{
+	xenia.canjearHechizo(hechizoBasico)
+	assert.equals(100,xenia.oro())
+}
+test "Thor canjea el hechizo por el hechizo de logos “alacachula cachicomula” del juego de datos. Cuántas monedas le quedan a Thor."{
+	thor.canjearHechizo(alacachulaCachicomula)
+	assert.equals(83,thor.oro())
+}
+test "Hacer canjear dos veces a Thor el mismo hechizo básico."{
+	thor.canjearHechizo(hechizoBasico)
+	thor.canjearHechizo(hechizoBasico)
+	assert.equals(90,thor.oro())
+}
+test "Loki comienza con 5 monedas. Quiere canjear el hechizo por el de “alacachula cachicomula” del juego de datos."{
+	assert.throwsExceptionWithMessage("no tienes suficientes monedas",{loki.canjearHechizo(alacachulaCachicomula)})
+}
+test "Xenia compra una espada, un collar divino (de 5 perlas), una armadura sin refuerzo y otra armadura con malla de cota cuyo valor de lucha es 5. Cuántas monedas le quedan a Xenia"{
+	xenia.comprarArtefacto(espada,mockHnos)
+	xenia.comprarArtefacto(collarDivino,mockHnos)
+	xenia.comprarArtefacto(armaduraSinRef,mockHnos)
+	xenia.comprarArtefacto(armaduraConCota,mockHnos)
+	assert.equals(85.5,xenia.oro())
+}
+test "Xenia compra una espada, un collar divino (de 5 perlas), una armadura sin refuerzo y otra armadura con malla de cota cuyo valor de lucha es 5. Cuántos artefactos tiene Xenia."{
+	xenia.comprarArtefacto(espada,mockHnos)
+	xenia.comprarArtefacto(collarDivino,mockHnos)
+	xenia.comprarArtefacto(armaduraSinRef,mockHnos)
+	xenia.comprarArtefacto(armaduraConCota,mockHnos)
+	assert.equals(4,xenia.artefactos().size())
+}
+test "Thor compra una armadura con bendición como refuerzo, y una armadura reforzada con el hechizo alacachula (del juego de datos). Cuántas monedas le quedan a Thor."{
+	thor.hechizoPreferido(alacachulaCachicomula) // manera de arreglar que el hechizo pueda ser refuerzo
+	thor.comprarArtefacto(armaduraConBendicion,mockHnos)
+	thor.comprarArtefacto(armaduraConHechizo,mockHnos)
+	assert.equals(74,thor.oro())
+}
+test "Loki quiere comprar el espejo."{
+	assert.throwsExceptionWithMessage("no tienes suficientes monedas",{loki.comprarArtefacto(espejo,mockHnos)})
+	
+}
+test"Xenia canjea un libro de hechizos que contiene el hechizo de logos de nombre “alacachula cachicomula” y el hechizo básico. Cuántas monedas le quedan a Xenia."{
+	xenia.canjearHechizo(libroHechizos)
+	assert.equals(69,xenia.oro())
+}
+}

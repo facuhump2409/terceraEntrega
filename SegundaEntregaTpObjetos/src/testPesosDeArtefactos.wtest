@@ -1,0 +1,113 @@
+import guerreros.*
+import armas.*
+import hechizos.*
+import comerciantes.*
+
+describe "Tenemos una espada vieja, que la compramos el 7 de mayo del 2006, y pesa 7 kilos.
+Otra espada nueva, que la compramos hoy y pesa 4 kilos.
+Y otra espada común, que la compramos hace 50 días (no importa la fecha exacta, es siempre “hace”
+50 días) y su peso es de 5 kilos.
+Definimos una máscara oscura, de 3 kilos.
+Y una máscara clara, cuyo índice de oscuridad es 0 y cuyo peso es 2 kilos.
+Tenemos una armadura con cota de malla, de 10 kilos de peso.
+Otra armadura reforzada con el hechizo comercial que llamaremos armadura hechizo par, de 12 kilos
+de peso.
+Otra armadura reforzada con el hechizo espectro maléfico que llamaremos armadura hechizo impar,
+de 12 kilos.
+Otra armadura sin ningún tipo de refuerzo, de 12 kilos.
+Un comerciante Mock Hnos. que no trabaja con comisión.
+Merlin, un personaje que tiene 100 monedas y un peso máximo de 10.
+Y Ursula, una personaje que tiene 100 monedas, un peso máximo de 200 y tiene en su haber dos
+artefactos: la máscara oscura y la armadura con cota de malla."
+
+var espadaVieja = new ArmaBasica(7,1000)
+var espadaNueva = new ArmaBasica(4,0)
+var espadaComun = new ArmaBasica(5,50)
+var collarDivino = new CollarDivino (5,0,0)
+var mascaraOscura = new Mascara(1,3,0)
+var mascaraClara = new Mascara(0,2,0)
+var cotaDeMalla = new CotaDeMalla(5)
+var armaduraCotaDeMalla = new Armadura(2,cotaDeMalla,10,0)
+var hechizoComercial = new HechizoComercial ("el hechizo Comercial",2)
+var armaduraHechizoPar =new Armadura(2,hechizoComercial,12,0)
+var espectroMalefico= new Logos("espectro Malefico",1)
+var armaduraHechizoImpar = new Armadura(2,espectroMalefico,12,0)
+var armaduraSinRef = new Armadura(2,nada,12,0)
+var mockHnos = new Comerciante(independiente)
+var merlin = new Guerrero(nada,1,[],10)
+var ursula = new Guerrero(nada,1,[mascaraOscura,armaduraCotaDeMalla],200)
+
+fixture {
+	independiente.nuevaComision(0)
+}
+test "Saber el peso de la espada vieja" {
+
+	assert.equals(6,espadaVieja.pesoTotal(merlin))
+
+}
+
+test"Saber el peso de la espada nueva"{
+	assert.equals(4,espadaNueva.pesoTotal(merlin))
+}
+
+test"Saber el peso de la espada comun"{
+	assert.equals(4.5,espadaComun.pesoTotal(merlin)) // esta mal redactado el test es dividido 1000
+}
+
+test"Saber el peso de la collar divino"{
+	assert.equals(2.5,collarDivino.pesoTotal(merlin)) // esta mal redactado el test es dividido 1000
+}
+
+test"Saber el peso de la mascara oscura"{
+	assert.equals(3,mascaraOscura.pesoTotal(merlin)) // esta mal redactado el test es dividido 1000
+}
+
+test"Hacer que ocurra un eclipse.
+Saber el peso de la máscara oscura."{
+	fuerzaOscura.eclipse()
+	assert.equals(5,mascaraOscura.pesoTotal(merlin)) // esta mal redactado el test es dividido 1000
+}
+
+test"saber el peso de la mascara clara"{
+	assert.equals(2,mascaraClara.pesoTotal(merlin)) // esta mal redactado el test es dividido 1000
+}
+
+test"Saber cuál es el peso total de la armadura con cota
+de malla."{
+	assert.equals(11,armaduraCotaDeMalla.pesoTotal(merlin)) // esta mal redactado el test es dividido 1000
+}
+
+test"Saber peso armadura par."{
+	assert.equals(14,armaduraHechizoPar.pesoTotal(merlin)) // esta mal redactado el test es dividido 1000
+}
+
+test"Saber peso armadura impar"{
+	assert.equals(13,armaduraHechizoImpar.pesoTotal(merlin)) // esta mal redactado el test es dividido 1000
+}
+
+test"Saber peso armadura sin refuerzo"{
+	assert.equals(12,armaduraSinRef.pesoTotal(merlin)) // esta mal redactado el test es dividido 1000
+}
+
+test "Merlín le compra a Mock Hnos. la máscara clara y
+la oscura (sin que haya eclipse). Saber cuál es el
+peso total que carga Merlin."{
+	merlin.comprarArtefacto(mascaraClara,mockHnos)
+	merlin.comprarArtefacto(mascaraOscura,mockHnos)
+	assert.equals(5,merlin.cargaAcumulada())
+}
+
+test "Merlín le quiere comprar a Mock Hnos. la
+armadura con hechizo par." {
+	assert.throwsExceptionWithMessage("No se puede comprar el artefacto porque se excederia de la carga maxima",{merlin.comprarArtefacto(armaduraHechizoPar,mockHnos)})
+}
+
+test "Ursula carga con 14 kilos iniciales (11 de la
+armadura con cota de malla y 3 de la máscara
+oscura). Decide desprenderse de la armadura con
+cota de malla. Saber cuál es el peso total con el
+que carga Ursula ahora."{
+	ursula.desprenderArtefacto(armaduraCotaDeMalla)
+	assert.equals(3,ursula.cargaAcumulada())
+}
+

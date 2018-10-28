@@ -1,0 +1,18 @@
+import guerreros.*
+import armas.*
+import hechizos.*
+import comerciantes.*
+import personajesNoControlados.*
+
+describe 
+var hechizoComercial = new HechizoComercial ("el hechizo Comercial",2)
+var facil = new Nivel (1)
+var navi = new NPC (hechizoComercial,1,[],100,facil)
+var mascaraClara = new Mascara(0,2,0)
+var moderada = new Nivel(2)
+var graham = new NPC (hechizoComercial,5,[mascaraClara],100,moderada)
+test "Conocer la habilidad para la lucha de navi" {
+
+	assert.equals(1,navi.valorLucha())
+
+}

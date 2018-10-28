@@ -1,0 +1,21 @@
+import guerreros.*
+import armas.*
+import hechizos.*
+import comerciantes.*
+
+describe "definir hechizo comercial
+			hechizo de logos espectro malefico
+			y personaje furibunda que tiene como hechizo preferido hechizo comercial"
+		var espectroMalefico= new Logos("espectro Malefico",1)
+		var hechizoComercial = new HechizoComercial ("el hechizo Comercial",2)
+		var furibunda = new Guerrero(hechizoComercial,1,[],200)
+test "Saber el nivel de hechicería de Furibunda." {
+
+	assert.equals(29,furibunda.nivelHechiceria())
+}
+test "Saber si el hechizo comercial es poderoso"{
+	assert.notThat(hechizoComercial.esPoderoso(furibunda))
+}
+test "espectro Malefico es poderoso"{
+	assert.that(espectroMalefico.esPoderoso(furibunda))
+}
