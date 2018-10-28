@@ -51,6 +51,8 @@ class Mascara inherits Peso{
 	
 	override method pesoTotal(guerrero){ return super(guerrero) + self.valorPeso(guerrero) }
 	
+	method cambiarMinimo(nuevoMinimo) {minimo=nuevoMinimo}
+	
 	method valorPeso(guerrero){return 0.max(self.valor(guerrero)-3) }
 	
 	method valor(guerrero){return minimo.max((fuerzaOscura.valor()/2)*indiceOscuridad) } //minimo.max((fuerzaOscura.valor()/2)*indiceOscuridad)

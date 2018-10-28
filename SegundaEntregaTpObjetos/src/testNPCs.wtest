@@ -4,15 +4,30 @@ import hechizos.*
 import comerciantes.*
 import personajesNoControlados.*
 
-describe 
+describe "inicializar a graham y navi"
 var hechizoComercial = new HechizoComercial ("el hechizo Comercial",2)
 var facil = new Nivel (1)
 var navi = new NPC (hechizoComercial,1,[],100,facil)
 var mascaraClara = new Mascara(0,2,0)
-var moderada = new Nivel(2)
-var graham = new NPC (hechizoComercial,5,[mascaraClara],100,moderada)
+var moderado = new Nivel(2)
+var graham = new NPC (hechizoComercial,5,[mascaraClara],100,moderado)
+var dificil = new Nivel(4)
+
+fixture { 
+	 mascaraClara.cambiarMinimo(4) // tengo que hacer esto para que funcione los test, no se sabe cual es el minimo,distinto en los test
+}
+
 test "Conocer la habilidad para la lucha de navi" {
 
 	assert.equals(1,navi.valorLucha())
 
+}
+
+test"Conocer la habilidad para la lucha de graham"{
+	assert.equals(18,graham.valorLucha()) //me parece que esta mal redactado porque seria (5+3)*2
+}
+
+test "Cambiar nivel de graham y calcular habilidad de lucha"{
+	graham.cambiarNivel(dificil)
+	assert.equals(36,graham.valorLucha())
 }

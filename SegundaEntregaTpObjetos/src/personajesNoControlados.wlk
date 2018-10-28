@@ -6,8 +6,8 @@ class NPC inherits Guerrero {
 	constructor(nuevoHechizoPreferido,baseLucha,nuevosArtefactos,carga,nuevoNivel)=super(nuevoHechizoPreferido,baseLucha,nuevosArtefactos,carga){
 		nivel = nuevoNivel
 	}
-	
-	method valorBaseLucha(){return valorBaseLucha * nivel.multiplicador() }
+	method cambiarNivel(nuevoNivel){ nivel = nuevoNivel}
+	override method valorLucha(){return super() * nivel.multiplicador() }
 }
 
 class Nivel {

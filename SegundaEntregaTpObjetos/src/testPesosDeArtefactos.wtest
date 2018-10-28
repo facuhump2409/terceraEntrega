@@ -54,7 +54,7 @@ test"Saber el peso de la espada comun"{
 	assert.equals(4.5,espadaComun.pesoTotal(merlin)) // esta mal redactado el test es dividido 1000
 }
 
-test"Saber el peso de la collar divino"{
+test"Saber el peso del collar divino"{
 	assert.equals(2.5,collarDivino.pesoTotal(merlin)) // esta mal redactado el test es dividido 1000
 }
 
@@ -65,28 +65,28 @@ test"Saber el peso de la mascara oscura"{
 test"Hacer que ocurra un eclipse.
 Saber el peso de la máscara oscura."{
 	fuerzaOscura.eclipse()
-	assert.equals(5,mascaraOscura.pesoTotal(merlin)) // esta mal redactado el test es dividido 1000
+	assert.equals(5,mascaraOscura.pesoTotal(merlin)) 
 }
 
 test"saber el peso de la mascara clara"{
-	assert.equals(2,mascaraClara.pesoTotal(merlin)) // esta mal redactado el test es dividido 1000
+	assert.equals(2,mascaraClara.pesoTotal(merlin)) 
 }
 
 test"Saber cuál es el peso total de la armadura con cota
 de malla."{
-	assert.equals(11,armaduraCotaDeMalla.pesoTotal(merlin)) // esta mal redactado el test es dividido 1000
+	assert.equals(11,armaduraCotaDeMalla.pesoTotal(merlin)) 
 }
 
 test"Saber peso armadura par."{
-	assert.equals(14,armaduraHechizoPar.pesoTotal(merlin)) // esta mal redactado el test es dividido 1000
+	assert.equals(14,armaduraHechizoPar.pesoTotal(merlin)) 
 }
 
 test"Saber peso armadura impar"{
-	assert.equals(13,armaduraHechizoImpar.pesoTotal(merlin)) // esta mal redactado el test es dividido 1000
+	assert.equals(13,armaduraHechizoImpar.pesoTotal(merlin)) 
 }
 
 test"Saber peso armadura sin refuerzo"{
-	assert.equals(12,armaduraSinRef.pesoTotal(merlin)) // esta mal redactado el test es dividido 1000
+	assert.equals(12,armaduraSinRef.pesoTotal(merlin)) 
 }
 
 test "Merlín le compra a Mock Hnos. la máscara clara y

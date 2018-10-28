@@ -10,7 +10,7 @@ class Comerciante {
 	constructor (tipoDeComerciante){
 		tipo = tipoDeComerciante
 	}
-	method recategorizacion() { tipo = tipo.recategorizacion()}
+	method recategorizar() { tipo = tipo.recategorizacion()}
 	
 	method comision(valor) {return tipo.comision(valor) }
 }
