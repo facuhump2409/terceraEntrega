@@ -11,7 +11,7 @@ describe "crear a xenia con hechizo preferido de logos
 		var xenia = new Guerrero(alacachulaCachicomula,1,[],200)
 		var thor= new Guerrero(hechizoBasico,1,[],200)
 		var loki = new Guerrero(hechizoBasico,1,[],200)
-		var espada = new ArmaBasica(0)
+		var espada = new ArmaBasica(0,0)
 		var armaduraSinRef = new Armadura(2,nada,0,0)
 		var cotaDeMalla = new CotaDeMalla(5)
 		var armaduraConCota = new Armadura(2,cotaDeMalla,0,0)

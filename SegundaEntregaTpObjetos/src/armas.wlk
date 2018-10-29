@@ -7,15 +7,15 @@ object fuerzaOscura {
 }
 
 class ArmaBasica inherits Peso{	
-	var pesoTotal
-	
-	var dias
+//	var pesoTotal
+//	
+//	var dias
 	
 	constructor(peso,nuevaFecha)=super(peso,nuevaFecha)
 	
 	method valor(guerrero){ return 3 }
 	
-	method precio(guerrero){return pesoTotal*5}
+	method precio(guerrero){return self.pesoTotal(guerrero)*5}
 	
 	method esEspejo(){ return false} //@ Un asquete
 }
@@ -143,7 +143,7 @@ class Peso { // un ojeto o una clase?
 	var peso
 	
 	constructor(nuevoPeso,dias){
-		diasDesdeCompra = dias
+		diasDesdeCompra = new Date() - dias
 		peso = nuevoPeso
 	}
 	

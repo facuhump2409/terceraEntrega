@@ -1,4 +1,6 @@
 import guerreros.*
+import hechizos.*
+import armas.*
 
 object minimoNoImponible{
 	method valor() {return 5}

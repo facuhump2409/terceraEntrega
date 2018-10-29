@@ -11,8 +11,8 @@ mínimo imponible de 5 monedas"
 		var prieto = new Comerciante(registrado)
 		var fermepin = new Comerciante(impuestoGanancias)
 		var cotaDeMalla = new CotaDeMalla(5)
-		var armaduraCotaDeMalla = new Armadura(2,cotaDeMalla,10,0)
-		var mascaraOscura = new Mascara(1,3,0)
+		var armaduraCotaDeMalla = new Armadura(2,cotaDeMalla,10,new Date())
+		var mascaraOscura = new Mascara(1,3,new Date())
 		var ursula = new Guerrero(nada,1,[mascaraOscura,armaduraCotaDeMalla],200)
 fixture{
 	independiente.nuevaComision(0.09)
